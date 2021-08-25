@@ -11,7 +11,7 @@ const Logo = ({ ...props }) => (
     mb='16px'
     {...props}
   >
-    meme generator
+    meme factory
   </Text>
 )
 
