@@ -1,4 +1,4 @@
-# meme generator
+# meme factory
 
 ## 💻 How to run the project
 
