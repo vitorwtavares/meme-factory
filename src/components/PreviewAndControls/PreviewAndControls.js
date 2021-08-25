@@ -10,11 +10,16 @@ const PreviewAndControls = ({
   setBottomText,
   selectedColor,
   setSelectedColor,
-  generatedMeme,
   isLoading,
   handleGenerateMeme,
   image,
-  imageContainer
+  imageContainer,
+  generatedText,
+  setGeneratedText,
+  generatedMeme,
+  setGeneratedMeme,
+  generatedColor,
+  setGeneratedColor
 }) => (
   <Flex align='center' justify='center' mt='16px'>
     <Flex direction='column'>
@@ -76,7 +81,13 @@ const PreviewAndControls = ({
         placeholder='top text'
         w='300px'
         mb='12px'
-        onChange={e => setTopText(e.target.value)}
+        onChange={e => {
+          setTopText(e.target.value)
+          if (generatedText.top !== e.target.value) {
+            setGeneratedText({ ...generatedText, top: '' })
+            setGeneratedMeme(null)
+          }
+        }}
         value={topText}
       />
       <Text fontWeight={600} mr='12px' mb='8px'>
@@ -86,16 +97,27 @@ const PreviewAndControls = ({
         placeholder='bottom text'
         w='300px'
         mb='12px'
-        onChange={e => setBottomText(e.target.value)}
+        onChange={e => {
+          setBottomText(e.target.value)
+          if (generatedText.bottom !== e.target.value) {
+            setGeneratedText({ ...generatedText, bottom: '' })
+            setGeneratedMeme(null)
+          }
+        }}
         value={bottomText}
       />
       <Text fontWeight={600} mr='12px' mb='8px'>
         font color
       </Text>
       <Select
-        onChange={e => setSelectedColor(`colorSelector.${e.target.value}`)}
+        onChange={e => {
+          setSelectedColor(`colorSelector.${e.target.value}`)
+          setGeneratedColor(e.target.value)
+          setGeneratedMeme(null)
+        }}
         w='70px'
         mb='64px'
+        value={selectedColor.slice(selectedColor.indexOf('.') + 1)}
       >
         {colorSelectorOptions.map(color => (
           <option key={color.name} value={color.name}>
@@ -108,24 +130,39 @@ const PreviewAndControls = ({
         bgColor='brand.600'
         color='white'
         transition='all 0.2s ease-in-out'
-        _hover={{ bgGradient: 'linear(to-l, #0059FF,#FF0080)' }}
+        _hover={
+          (isLoading ||
+            (generatedText.top !== topText &&
+              generatedText.bottom !== bottomText &&
+              generatedColor !== selectedColor)) && {
+            bgGradient: 'linear(to-l, #0059FF,#FF0080)'
+          }
+        }
         mr='8px'
         onClick={() => !isLoading && handleGenerateMeme()}
-        disabled={isLoading}
+        disabled={
+          isLoading ||
+          (generatedText.top === topText &&
+            generatedText.bottom === bottomText &&
+            generatedColor === selectedColor)
+        }
         mb='4px'
       >
         generate your meme
       </Button>
-      {generatedMeme && (
-        <Flex align='center' mb='12px' mx='auto'>
-          <Icon color='colorSelector.green' align='center' w='20px'>
-            <MdCheck size='26px' />
-          </Icon>
-          <Text color='colorSelector.green' fontWeight={600}>
-            meme generated
-          </Text>
-        </Flex>
-      )}
+      {generatedMeme &&
+        generatedColor === selectedColor &&
+        generatedText.top === topText &&
+        generatedText.bottom === bottomText && (
+          <Flex align='center' mb='12px' mx='auto'>
+            <Icon color='colorSelector.green' align='center' w='20px'>
+              <MdCheck size='26px' />
+            </Icon>
+            <Text color='colorSelector.green' fontWeight={600}>
+              meme generated
+            </Text>
+          </Flex>
+        )}
       <Button
         as='a'
         w='100%'
