@@ -1,13 +1,24 @@
-# Basic boilerplate for React projects
+# meme generator
 
-- [Chakra UI](https://chakra-ui.com/) installed and base theme configured
-- Basic structure for providers and services using Axios
-- ESLint, Prettier and EditorConfig preconfigured
-- Clean CRA template
-- Folder structure and organization
+## 💻 How to run the project
 
-### `yarn start`
+1. Clone the repository.
+2. Install all dependencies using the `yarn` command.
+3. Use the `yarn start` command to run the project locally on port `3000`.
 
-To run on [http://localhost:3000](http://localhost:3000)
+## 📖 About
 
-Created using CRA.
+- Application that allows you to create "top text" and "bottom text" type memes quickly and easily.
+- Font color selector, text on the top, bottom or both.
+- Instantly download the meme you created.
+- Created for study purposes, mainly to explore the html2canvas library.
+
+## 🛠️ Technologies used
+
+- React
+- Chakra UI
+- html2canvas
+- React Icons
+- ESlint, Prettier e EditorConfig
+
+Created using my very own [basic React boilerplate](https://github.com/vitorwtavares/react-projects-boilerplate).
