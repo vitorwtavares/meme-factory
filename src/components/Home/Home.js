@@ -17,6 +17,7 @@ const Home = () => {
 
   const handleChangeImage = image => {
     setHasSelectedFile(true)
+    setGeneratedMeme(null)
     const reader = new FileReader()
     reader.onloadend = () => setImage(reader.result)
     reader.readAsDataURL(image)
@@ -70,6 +71,9 @@ const Home = () => {
       >
         {hasSelectedFile ? 'try with a different image' : 'upload an image to get started'}
       </Button>
+      <Text fontSize='sm' fontWeight={400} color='brand.600' mt='8px'>
+        upload an image with a square resolution of 650px x 650px or larger
+      </Text>
       {image && (
         <Flex align='center' justify='center' mt='16px'>
           <Flex direction='column'>
