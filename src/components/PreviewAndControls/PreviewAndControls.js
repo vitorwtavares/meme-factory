@@ -144,7 +144,8 @@ const PreviewAndControls = ({
           isLoading ||
           (generatedText.top === topText &&
             generatedText.bottom === bottomText &&
-            generatedColor === selectedColor)
+            generatedColor === selectedColor) ||
+          (!topText && !bottomText)
         }
         mb='4px'
       >
