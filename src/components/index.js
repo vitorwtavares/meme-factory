@@ -1,2 +1,5 @@
-export * from './Home'
 export * from './Wrapper'
+export * from './Logo'
+export * from './Container'
+export * from './UploadButton'
+export * from './PreviewAndControls'
