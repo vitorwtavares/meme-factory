@@ -11,7 +11,9 @@ const Home = () => {
   const [bottomText, setBottomText] = useState('')
   const [selectedColor, setSelectedColor] = useState('colorSelector.white')
   const [generatedMeme, setGeneratedMeme] = useState(null)
+  const [generatedText, setGeneratedText] = useState({ top: '', bottom: '' })
   const [isLoading, setIsLoading] = useState(false)
+  const [generatedColor, setGeneratedColor] = useState('white')
 
   const inputRef = useRef(null)
   const imageContainer = useRef(null)
@@ -20,6 +22,9 @@ const Home = () => {
     if (image) {
       setHasSelectedFile(true)
       setGeneratedMeme(null)
+      setTopText('')
+      setBottomText('')
+      setSelectedColor('colorSelector.white')
       const reader = new FileReader()
       reader.onloadend = () => setImage(reader.result)
       reader?.readAsDataURL(image)
@@ -30,6 +35,8 @@ const Home = () => {
     try {
       setIsLoading(true)
       const canvas = await html2canvas(imageContainer.current)
+      setGeneratedText({ top: topText, bottom: bottomText })
+      setGeneratedColor(selectedColor)
       setGeneratedMeme(canvas.toDataURL())
     } catch (err) {
       console.log(err)
@@ -55,10 +62,15 @@ const Home = () => {
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
           generatedMeme={generatedMeme}
+          setGeneratedMeme={setGeneratedMeme}
           isLoading={isLoading}
           handleGenerateMeme={handleGenerateMeme}
           image={image}
           imageContainer={imageContainer}
+          generatedText={generatedText}
+          setGeneratedText={setGeneratedText}
+          generatedColor={generatedColor}
+          setGeneratedColor={setGeneratedColor}
         />
       )}
     </Container>
